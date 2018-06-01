@@ -1,0 +1,139 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="form1">
+
+		<p:commandButton value="Scrivi" type="button" update="wrapInvioMail"
+			onclick="PF('dlg2').show();" />
+		<p:tabView id="tab">
+			<p:tab id="panePostaArrivo" title="Posta In Arrivo">
+
+				<p:panelGrid id="searchPanel" columns="2">
+					<h:outputLabel value="da : " />
+					<p:inputText id="searchDa" value="#{spedizioneBean.ricercaDa}" />
+
+					<h:outputLabel value="oggetto : " />
+					<p:inputText id="searchOggetto"
+						value="#{spedizioneBean.ricercaOggetto}" />
+
+					<p:commandButton id="search" value="Search" process="searchPanel"
+						update="tab" action="#{spedizioneBean.search()}" />
+
+
+				</p:panelGrid>
+				<p:dataTable id="arrivateTable" var="mail"
+					value="#{spedizioneBean.arrivateVisualizzate}" rows="9"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} ">
+					<p:column headerText="da:">
+						<h:outputText value="#{mail.da}" />
+					</p:column>
+
+					<p:column headerText="cc:">
+						<h:outputText value="#{mail.cc}" />
+					</p:column>
+
+					<p:column headerText="oggetto:">
+						<h:outputText value="#{mail.oggetto}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton value="Visualizza Testo"
+							oncomplete="PF('dlg3').show();" process="@this"
+							update=":form1:labelTesto"
+							actionListener="#{spedizioneBean.visualizza(mail.testo)}">
+						</p:commandButton>
+					</p:column>
+
+
+				</p:dataTable>
+
+
+
+			</p:tab>
+			<p:tab id="panelPostaInviata" title="Posta Inviata">
+
+				<p:dataTable id="mailTable" var="mail"
+					value="#{spedizioneBean.mails}" rows="9" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					<p:column headerText="a:">
+						<h:outputText value="#{mail.a}" />
+					</p:column>
+
+					<p:column headerText="cc:">
+						<h:outputText value="#{mail.cc}" />
+					</p:column>
+
+					<p:column headerText="oggetto:">
+						<h:outputText value="#{mail.oggetto}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton value="Visualizza Testo"
+							oncomplete="PF('dlg3').show();" process="@this"
+							update=":form1:labelTesto"
+							actionListener="#{spedizioneBean.visualizza(mail.testo)}">
+						</p:commandButton>
+					</p:column>
+
+					<p:column>
+						<p:commandButton value="Elimina Mail" immediate="true"
+							update="mailTable"
+							actionListener="#{spedizioneBean.eliminaInviate(mail)}" />
+					</p:column>
+				</p:dataTable>
+
+			</p:tab>
+		</p:tabView>
+
+
+
+		<p:dialog header="Scrittura Mail" widgetVar="dlg2" modal="true"
+			height="90%" width="90%" resizable="false" draggable="false">
+			<p:panelGrid id="wrapInvioMail" columns="3">
+				<p:outputLabel value="email" />
+				<p:inputText id="email" value="#{spedizioneBean.a}" required="true"
+					requiredMessage="email:campo obbligatorio" />
+				<p:message for="email" showDetail="true" />
+
+
+				<p:outputLabel value="cc" />
+				<p:inputText id="cc" value="#{spedizioneBean.cc}" required="true"
+					requiredMessage="cc:campo obbligatorio" />
+				<p:message for="cc" showDetail="true" />
+
+				<p:outputLabel value="oggetto" />
+				<p:inputText id="oggetto" value="#{spedizioneBean.oggetto}"
+					required="true" requiredMessage="oggetto:campo obbligatorio" />
+				<p:message for="oggetto" showDetail="true" />
+
+				<p:outputLabel value="testo" />
+				<p:inputTextarea id="testo" value="#{spedizioneBean.testo}"
+					required="true" requiredMessage="testo:campo obbligatorio" />
+				<p:message for="testo" showDetail="true" />
+
+				<p:commandButton value="Invia" process="@form"
+					update=":form1:tab , wrapInvioMail"
+					action="#{spedizioneBean.submit()}" />
+			</p:panelGrid>
+		</p:dialog>
+
+		<p:dialog header="Testo" widgetVar="dlg3" modal="true" height="90%"
+			width="90%">
+			<h:outputText id="labelTesto" value="#{spedizioneBean.testo}" />
+		</p:dialog>
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage value="/ajax_loader.gif" />
+		</p:dialog>
+
+	</h:form>
+
+</ui:composition>

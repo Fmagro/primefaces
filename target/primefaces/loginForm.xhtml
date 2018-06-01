@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputScript name="jsf.js" library="javax.faces" target="head" />
+	<script>
+		PrimeFaces.locales['it'] = {
+			closeText : 'Chiudi',
+			prevText : 'Precedente',
+			nextText : 'Prossimo',
+			monthNames : [ 'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio',
+					'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre',
+					'Novembre', 'Dicembre' ],
+			monthNamesShort : [ 'Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu',
+					'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic' ],
+			dayNames : [ 'Domenica', 'Lunedì', 'Martedì', 'Mercoledì',
+					'Giovedì', 'Venerdì', 'Sabato' ],
+			dayNamesShort : [ 'Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab' ],
+			dayNamesMin : [ 'D', 'L', 'M', 'M ', 'G', 'V ', 'S' ],
+			weekHeader : 'Sett',
+			firstDay : 1,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Solo Tempo',
+			timeText : 'Ora',
+			hourText : 'Ore',
+			minuteText : 'Minuto',
+			secondText : 'Secondo',
+			currentText : 'Data Odierna',
+			ampm : false,
+			month : 'Mese',
+			week : 'Settimana',
+			day : 'Giorno',
+			allDayText : 'Tutto il Giorno'
+		};
+	</script>
+</h:head>
+<h:body>
+	<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="false"
+		life="5000" />
+
+	<p:messages autoUpdate="true" showDetail="true" />
+
+	<h:form id="form" >
+		<h:outputText value="#{now}">
+			<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+		</h:outputText>
+		<p:panelGrid id="panelGrid" columns="3">
+
+
+
+
+			<h:outputLabel value="username" />
+			<p:inputText id="username" value="#{newLoginBean.username}" />
+			<p:message for="username" showDetail="true" />
+
+			<h:outputLabel value="password" />
+			<p:password id="password" value="#{newLoginBean.password}" />
+			<p:message for="password" showDetail="true" />
+
+			<h:outputLabel value="confirm password" />
+			<p:password id="confPassword" value="#{newLoginBean.confPwd}">
+				<f:validator for="confPassword" validatorId="pwdValidator" />
+				<f:attribute name="campoOrig" value="password" />
+			</p:password>
+			<p:message for="confPassword" showDetail="true" />
+
+			<p:outputLabel for="popup" value="Data di Nascita:" />
+			<p:calendar id="popup" value="#{newLoginBean.nascita}"
+				mindate="30/05/18" />
+			<p:message for="popup" showDetail="true" />
+
+			<p:outputLabel for="inizioStudi" value="Inizio Studi:" />
+			<p:calendar id="inizioStudi" value="#{newLoginBean.inizioStudi}"
+				required="true">
+				<p:ajax event="dateSelect" process="@this" update="fineStudi" />
+				<p:ajax event="keyup" process="@this" update="fineStudi" />
+			</p:calendar>
+			<p:message for="inizioStudi" showDetail="true" />
+
+			<p:outputLabel for="fineStudi" value="Fine Studi:" />
+			<p:calendar id="fineStudi" value="#{newLoginBean.fineStudi}"
+				mindate="#{newLoginBean.inizioStudi}">
+				<f:validator for="fineStudi" validatorId="dateRangeValidator" />
+				<f:attribute name="dataInizio" value="form:inizioStudi" />
+			</p:calendar>
+			<p:message for="fineStudi" showDetail="true" />
+
+		</p:panelGrid>
+		<p:commandButton value="Submit" update="panelGrid"
+			process="@this, panelGrid" actionListener="#{newLoginBean.insert()}" />
+
+
+	</h:form>
+	<ui:include src="/spedizioneMail2.xhtml" />
+
+</h:body>
+</html>

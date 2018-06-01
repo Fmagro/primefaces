@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputScript name="jsf.js" library="javax.faces" target="head" />
+</h:head>
+<h:body>
+	<h:form>
+		<p:panelMenu>
+			<p:submenu label="Input Form Examples" expanded="true">
+				<p:menuitem value="inputFormExample" action="inputFormAjax" />
+				<p:menuitem value="inputFormAjaxExample"
+					action="inputFormAjaxExample" />
+				<p:menuitem value="inputFormAjaxExample2"
+					action="inputFormAjaxExample2" />
+				<p:menuitem value="inputFormAjaxExample3"
+					action="inputFormAjaxExample3" />
+				<p:menuitem value="inputFormAjaxPvsF" action="inputFormAjaxPvsF" />
+			</p:submenu>
+			<p:submenu label="Esempio Navigazione" expanded="true">
+				<p:menuitem value="esempioNavigazione1" action="page1" />
+				<p:menuitem value="esempioNavigazione2" action="accettazione" />
+			</p:submenu>
+			<p:submenu label="culo" expanded="true">
+				<p:menuitem value="passaggio parametri" action="passaggioParametri" />
+			</p:submenu>
+			<p:submenu label="Validazioni" expanded="true">
+				<p:menuitem value="validazioni 1" action="validazioni1" />
+				<p:menuitem value="validazioni 2" action="validazioni2" />
+			</p:submenu>
+			<p:submenu label="datatable" expanded="true">
+				<p:menuitem value="datatable 1" action="datatable1" />
+				<p:menuitem value="datatable 2" action="datatable2" />
+			</p:submenu>
+			<p:submenu label="Di mia produzione" expanded="true">
+				<p:menuitem value="Spedizione mail" action="spedizioneMail" />
+				<p:menuitem value="Login Form" action="loginForm" />
+				<p:menuitem value="Pagina Include" action="pagInclude" />
+				<p:menuitem value="chat" action="chat" />
+				<p:menuitem value="counter con alarm" action="finitaFantasia" />
+			</p:submenu>
+		</p:panelMenu>
+	</h:form>
+</h:body>
+</html>

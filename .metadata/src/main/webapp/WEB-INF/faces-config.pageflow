@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15276079095590" configfile="/primefaces/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="178" id="pf15277584029260" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15277584029271 pf15277584029272" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="page1.xhtml" x="338" y="178" id="pf15277584029273" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf15277584029271 pf15277584029272" path="/page1.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="page1.xhtml" x="122" y="562" id="pf15277584029274" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf15277584029275" path="page1.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="page2.xhtml" x="338" y="562" id="pf15277584029276" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15277584029275" path="/page2.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="page2.xhtml" x="122" y="946" id="pf15277584029277" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf15277584029278" path="page2.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="page3.xhtml" x="338" y="946" id="pf15277584029279" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf15277584029278" path="/page3.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="accettazione.xhtml" x="122" y="1330" id="pf152775840292710" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf152775840292711" path="accettazione.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="ok.xhtml" x="338" y="1330" id="pf152775840292712" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf152775840292711" path="ok.xhtml"/>
+  <links id="pf15277584029271" target="pf15277584029273" source="pf15277584029260" outcome="page2"/>
+  <links id="pf15277584029272" target="pf15277584029273" source="pf15277584029260" outcome="page3"/>
+  <links id="pf15277584029275" target="pf15277584029276" source="pf15277584029274" outcome="page2"/>
+  <links id="pf15277584029278" target="pf15277584029279" source="pf15277584029277" outcome="page3"/>
+  <links id="pf152775840292711" target="pf152775840292712" source="pf152775840292710" outcome="vai" redirect="true"/>
+</pageflow:Pageflow>

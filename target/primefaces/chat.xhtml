@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputScript name="jsf.js" library="javax.faces" target="head" />
+	<script>
+		var myInterval = setInterval( function(){rc();}, 1000);
+		
+		function clear() {
+			clearInterval(myInterval);
+		}
+	</script>
+</h:head>
+<h:body>
+
+
+	<h:form id="form">
+		<p:remoteCommand name="aggiorna" update=":form:chatList" />
+		<p:commandButton action="#{chatBean.nomeACaso()}" value="Mail" />
+		<p:outputLabel id="labelMsg" value="Inserire Messaggio" />
+		<p:inputText id="inputMsg" value="#{chatBean.messaggio}" />
+		<p:commandButton value="Invia" actionListener="#{chatBean.aggiungi()}"
+			process="@this ,inputMsg" update="@form" />
+		<p:panelGrid id="chatPanel" columns="2">
+			<p:dataList id="chatList" var="messaggio"
+				value="#{chatBean.listaMsg}" rows="10">
+				#{messaggio}
+			</p:dataList>
+
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

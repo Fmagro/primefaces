@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputScript name="jsf.js" library="javax.faces" target="head" />
+	<title>Spedizione Mail</title>
+	<script>
+	
+	    setInterval( function(){rc();}, 1000);
+	
+	</script>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:remoteCommand name="rc" update=":form:labelCounter"
+			actionListener="#{wrapperBean.counter}" />
+		<ui:include src="/autoComplete.xhtml" />
+
+		<p:commandButton value="Submit"
+			actionListener="#{wrapperBean.mostra()}" update="@form" />
+
+		<p:panelGrid id="panelOutput">
+			<p:outputLabel id="outputSelezione"
+				value="#{wrapperBean.autoCompleteBean.selezione}" />
+		</p:panelGrid>
+
+		<p:commandButton value="Nascosto" rendered="#{wrapperBean.nascosto}" />
+		<p:commandButton value="Counter"
+			actionListener="#{wrapperBean.counter()}" update="labelCounter" />
+
+		<p:outputLabel id="labelCounter" value="#{wrapperBean.count}" />
+	</h:form>
+</h:body>
+</html>
